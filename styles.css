@@ -432,3 +432,6 @@ section{ max-width: 1160px; margin: 0 auto; padding: 5rem 2.5rem; }
   background: var(--bg-panel);
 }
 .upload-placeholder{ color: var(--ink-faint); margin-bottom: 1.2rem; }
+
+
+.upload-row{ display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
