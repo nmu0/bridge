@@ -83,7 +83,10 @@
 
     <div class="results-row">
       <span id="resultsCount">Showing 0 opportunities</span>
-      <button class="btn btn-text small" id="clearFilters">Clear filters</button>
+      <div class="results-actions">
+        <button class="btn btn-outline small" id="submitOppBtn">+ Submit an opportunity</button>
+        <button class="btn btn-text small" id="clearFilters">Clear filters</button>
+      </div>
     </div>
 
     <div class="card-grid" id="cardGrid"></div>
@@ -174,49 +177,65 @@
 </footer>
 
 <!-- AUTH MODAL -->
-<div class="modal-overlay" id="authOverlay">
-  <div class="modal" id="authModal">
-    <button class="modal-close" id="authClose" aria-label="Close">&times;</button>
-
-    <div id="loginView">
-      <h2>Log in</h2>
-      <p class="modal-sub">Welcome back.</p>
-      <form id="loginForm">
+<div class="modal-overlay" id="submitOverlay">
+  <div class="modal modal-wide" id="submitModal">
+    <button class="modal-close" id="submitClose" aria-label="Close">&times;</button>
+    <h2>Submit an opportunity</h2>
+    <p class="modal-sub">We'll review it before it goes live. You'll need to be logged in.</p>
+    <form id="submitForm">
+      <div class="form-field">
+        <label for="subTitle">Title</label>
+        <input type="text" id="subTitle" required>
+      </div>
+      <div class="form-field">
+        <label for="subOrg">Organization</label>
+        <input type="text" id="subOrg" required>
+      </div>
+      <div class="form-row">
         <div class="form-field">
-          <label for="loginEmail">Email</label>
-          <input type="email" id="loginEmail" required>
+          <label for="subType">Type</label>
+          <select id="subType" required>
+            <option value="internship">Internship</option>
+            <option value="scholarship">Scholarship</option>
+            <option value="mentorship">Mentorship</option>
+            <option value="volunteer">Volunteer</option>
+            <option value="program">Program</option>
+          </select>
         </div>
         <div class="form-field">
-          <label for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" required>
+          <label for="subCost">Cost</label>
+          <select id="subCost" required>
+            <option value="free">Free</option>
+            <option value="paid">Paid</option>
+          </select>
         </div>
-        <p class="form-error" id="loginError"></p>
-        <button type="submit" class="btn btn-primary" style="width:100%">Log in</button>
-      </form>
-      <p class="modal-switch">New here? <button id="switchToSignup">Create an account</button></p>
-    </div>
-
-    <div id="signupView" style="display:none">
-      <h2>Get started</h2>
-      <p class="modal-sub">Free for students, always.</p>
-      <form id="signupForm">
-        <div class="form-field">
-          <label for="signupName">Full name</label>
-          <input type="text" id="signupName" required>
-        </div>
-        <div class="form-field">
-          <label for="signupEmail">Email</label>
-          <input type="email" id="signupEmail" required>
-        </div>
-        <div class="form-field">
-          <label for="signupPassword">Password</label>
-          <input type="password" id="signupPassword" required minlength="6">
-        </div>
-        <p class="form-error" id="signupError"></p>
-        <button type="submit" class="btn btn-primary" style="width:100%">Create account</button>
-      </form>
-      <p class="modal-switch">Already have an account? <button id="switchToLogin">Log in</button></p>
-    </div>
+      </div>
+      <div class="form-field">
+        <label for="subLocation">Location</label>
+        <input type="text" id="subLocation" placeholder="e.g. Seattle, WA or Remote" required>
+      </div>
+      <div class="form-field checkbox-field">
+        <label><input type="checkbox" id="subRemote"> This can be done remotely</label>
+      </div>
+      <div class="form-field">
+        <label for="subEligibility">Eligibility</label>
+        <input type="text" id="subEligibility" placeholder="e.g. Grades 9–12, Ages 14+" required>
+      </div>
+      <div class="form-field">
+        <label for="subDeadline">Deadline (optional)</label>
+        <input type="date" id="subDeadline">
+      </div>
+      <div class="form-field">
+        <label for="subDescription">Description</label>
+        <textarea id="subDescription" rows="4" required></textarea>
+      </div>
+      <div class="form-field">
+        <label for="subUrl">Link to real application (optional)</label>
+        <input type="url" id="subUrl" placeholder="https://...">
+      </div>
+      <p class="form-error" id="submitError"></p>
+      <button type="submit" class="btn btn-primary" style="width:100%">Submit for review</button>
+    </form>
   </div>
 </div>
 

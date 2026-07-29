@@ -6,6 +6,7 @@
 
 import { getOpportunities, getSavedIds, saveOpportunity, unsaveOpportunity } from './api.js';
 import { signUp, logIn, logOut, onAuthChange } from './auth.js';
+import { initSubmissionForm } from './submissions.js';
 
 // ---------- state ----------
 let state = {
@@ -340,3 +341,4 @@ document.getElementById("ctaContact").addEventListener("click", () => showToast(
 
 // ---------- init ----------
 loadOpportunities();
+initSubmissionForm();
