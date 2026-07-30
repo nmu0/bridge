@@ -177,6 +177,53 @@
 </footer>
 
 <!-- AUTH MODAL -->
+<div class="modal-overlay" id="authOverlay">
+  <div class="modal" id="authModal">
+    <button class="modal-close" id="authClose" aria-label="Close">&times;</button>
+
+    <div id="loginView">
+      <h2>Log in</h2>
+      <p class="modal-sub">Welcome back.</p>
+      <form id="loginForm">
+        <div class="form-field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required>
+        </div>
+        <div class="form-field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" required>
+        </div>
+        <p class="form-error" id="loginError"></p>
+        <button type="submit" class="btn btn-primary" style="width:100%">Log in</button>
+      </form>
+      <p class="modal-switch">New here? <button id="switchToSignup">Create an account</button></p>
+    </div>
+
+    <div id="signupView" style="display:none">
+      <h2>Get started</h2>
+      <p class="modal-sub">Free for students, always.</p>
+      <form id="signupForm">
+        <div class="form-field">
+          <label for="signupName">Full name</label>
+          <input type="text" id="signupName" required>
+        </div>
+        <div class="form-field">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" required>
+        </div>
+        <div class="form-field">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" required minlength="6">
+        </div>
+        <p class="form-error" id="signupError"></p>
+        <button type="submit" class="btn btn-primary" style="width:100%">Create account</button>
+      </form>
+      <p class="modal-switch">Already have an account? <button id="switchToLogin">Log in</button></p>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT OPPORTUNITY MODAL -->
 <div class="modal-overlay" id="submitOverlay">
   <div class="modal modal-wide" id="submitModal">
     <button class="modal-close" id="submitClose" aria-label="Close">&times;</button>
