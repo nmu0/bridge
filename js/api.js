@@ -145,8 +145,55 @@ export async function submitOpportunity(opportunity) {
   return { success: true, opportunity: data };
 }
 
-function formatDate(dateStr) {
+export function formatDate(dateStr) {
   if (!dateStr) return 'Rolling';
   const d = new Date(dateStr + 'T00:00:00'); // avoid timezone-shift-by-a-day bug
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+export async function isAdmin() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single();
+
+  if (error) {
+    console.error('isAdmin check failed:', error);
+    return false;
+  }
+  return data?.role === 'admin';
+}
+
+export async function getPendingOpportunities() {
+  const { data, error } = await supabase
+    .from('opportunities')
+    .select('*')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('getPendingOpportunities failed:', error);
+    return [];
+  }
+  return data.map((o) => ({
+    ...o,
+    deadline: o.deadline_label || formatDate(o.deadline),
+  }));
+}
+
+export async function setOpportunityStatus(id, status) {
+  const { error } = await supabase
+    .from('opportunities')
+    .update({ status })
+    .eq('id', id);
+
+  if (error) {
+    console.error('setOpportunityStatus failed:', error);
+    return false;
+  }
+  return true;
 }

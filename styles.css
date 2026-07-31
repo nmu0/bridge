@@ -453,3 +453,25 @@ section{ max-width: 1160px; margin: 0 auto; padding: 5rem 2.5rem; }
   resize: vertical;
 }
 .form-field textarea:focus{ outline: 2px solid var(--red); outline-offset: 1px; }
+
+/* ============ admin page ============ */
+.admin-hero{ padding-bottom: 1rem; }
+.admin-hero .section-head{ max-width: 640px; }
+.admin-hero h1{ font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--ink); margin-top: .4rem; }
+
+.admin-gate{
+  max-width: 640px; margin: 0 auto 3rem;
+  padding: 1.5rem; text-align: center;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-m);
+  color: var(--ink-faint);
+}
+
+.admin-list{ display: flex; flex-direction: column; gap: 1.2rem; padding-bottom: 4rem; }
+.admin-card{
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 1.5rem;
+}
+.admin-url{ font-size: .82rem; color: var(--ink-faint); word-break: break-all; }

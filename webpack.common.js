@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     app: './js/app.js',
     resume: './js/resume.js',
+    admin: './js/admin.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

@@ -16,6 +16,11 @@ module.exports = merge(common, {
       filename: 'resume.html',
       chunks: ['resume'],
     }),
+    new HtmlWebpackPlugin({
+      template: './admin.html',
+      filename: 'admin.html',
+      chunks: ['admin'],
+    }),
     new CopyPlugin({
       patterns: [
         { from: 'img', to: 'img' },
