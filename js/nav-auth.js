@@ -4,25 +4,34 @@
    and the mobile nav toggle. Any page that includes the standard
    nav markup and the #authOverlay modal markup can import
    initAuthUI() and get all of this for free.
+
+   openAuthModal is also exported at module scope (not just
+   returned from initAuthUI) so other modules — like the
+   opportunity submission form — can prompt a login without
+   needing a reference passed down from app.js.
    ========================================================== */
 
 import { signUp, logIn, logOut, onAuthChange } from './auth.js';
 
-export function initAuthUI(onUserChange = () => {}) {
+export function openAuthModal(view = "login"){
   const authOverlay = document.getElementById("authOverlay");
   const loginView = document.getElementById("loginView");
   const signupView = document.getElementById("signupView");
+  if(!authOverlay) return;
 
-  function openAuthModal(view = "login"){
-    loginView.style.display = view === "login" ? "block" : "none";
-    signupView.style.display = view === "signup" ? "block" : "none";
-    document.getElementById("loginError").classList.remove("show");
-    document.getElementById("signupError").classList.remove("show");
-    authOverlay.classList.add("open");
-  }
-  function closeAuthModal(){
-    authOverlay.classList.remove("open");
-  }
+  loginView.style.display = view === "login" ? "block" : "none";
+  signupView.style.display = view === "signup" ? "block" : "none";
+  document.getElementById("loginError")?.classList.remove("show");
+  document.getElementById("signupError")?.classList.remove("show");
+  authOverlay.classList.add("open");
+}
+
+function closeAuthModal(){
+  document.getElementById("authOverlay")?.classList.remove("open");
+}
+
+export function initAuthUI(onUserChange = () => {}) {
+  const authOverlay = document.getElementById("authOverlay");
 
   document.getElementById("authClose").addEventListener("click", closeAuthModal);
   authOverlay.addEventListener("click", (e) => {
@@ -99,11 +108,9 @@ export function initAuthUI(onUserChange = () => {}) {
 
   initNavToggle();
 
-  // expose so pages can open the modal from their own buttons (e.g. a CTA section)
   return { openAuthModal };
 }
 
-/* mobile hamburger toggle — shared across every page that uses the standard nav */
 function initNavToggle(){
   const navToggle = document.getElementById("navToggle");
   if(!navToggle) return;
