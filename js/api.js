@@ -197,3 +197,41 @@ export async function setOpportunityStatus(id, status) {
   }
   return true;
 }
+
+export async function submitContactMessage({ name, email, role, message }) {
+  const { error } = await supabase
+    .from('contact_messages')
+    .insert({ name, email, role, message });
+
+  if (error) {
+    console.error('submitContactMessage failed:', error);
+    return { success: false, error: error.message };
+  }
+  return { success: true };
+}
+
+export async function getContactMessages() {
+  const { data, error } = await supabase
+    .from('contact_messages')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('getContactMessages failed:', error);
+    return [];
+  }
+  return data;
+}
+
+export async function markMessageRead(id) {
+  const { error } = await supabase
+    .from('contact_messages')
+    .update({ read: true })
+    .eq('id', id);
+
+  if (error) {
+    console.error('markMessageRead failed:', error);
+    return false;
+  }
+  return true;
+}

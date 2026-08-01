@@ -7,6 +7,7 @@
 import { getOpportunities, getSavedIds, saveOpportunity, unsaveOpportunity } from './api.js';
 import { signUp, logIn, logOut, onAuthChange } from './auth.js';
 import { initSubmissionForm } from './submissions.js';
+import { initContactForm } from './contact.js';
 
 // ---------- state ----------
 let state = {
@@ -337,8 +338,8 @@ navToggle.addEventListener("click", () => {
 
 // ---------- CTA at bottom of page (schools section) ----------
 document.getElementById("ctaGetStarted").addEventListener("click", () => openAuthModal("signup"));
-document.getElementById("ctaContact").addEventListener("click", () => showToast("Contact form coming soon."));
 
 // ---------- init ----------
 loadOpportunities();
 initSubmissionForm();
+initContactForm();
