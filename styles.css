@@ -475,3 +475,5 @@ section{ max-width: 1160px; margin: 0 auto; padding: 5rem 2.5rem; }
   padding: 1.5rem;
 }
 .admin-url{ font-size: .82rem; color: var(--ink-faint); word-break: break-all; }
+
+.admin-card.unread{ border-left: 3px solid var(--red); }

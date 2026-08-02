@@ -9,10 +9,11 @@
    ========================================================== */
 
 import { initAuthUI, showToast } from './nav-auth.js';
-import { isAdmin, getPendingOpportunities, setOpportunityStatus } from './api.js';
+import { isAdmin, getPendingOpportunities, setOpportunityStatus, getContactMessages, markMessageRead } from './api.js';
 
 let currentUser = null;
 let pending = [];
+let messages = [];
 
 const gateEl = document.getElementById('adminGate');
 const listEl = document.getElementById('adminList');
@@ -40,7 +41,9 @@ async function refresh(){
 
   gateEl.style.display = 'none';
   pending = await getPendingOpportunities();
+  messages = await getContactMessages();
   render();
+  renderMessages();
 }
 
 function render(){
@@ -77,6 +80,37 @@ function render(){
   });
   listEl.querySelectorAll('.reject-btn').forEach(btn => {
     btn.addEventListener('click', () => handleDecision(btn.dataset.id, 'rejected'));
+  });
+}
+
+function renderMessages(){
+  const listEl = document.getElementById('messagesList');
+  if(!listEl) return;
+
+  if(messages.length === 0){
+    listEl.innerHTML = `<div class="empty-state">No messages yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = messages.map(m => `
+    <article class="admin-card ${m.read ? '' : 'unread'}">
+      <div class="opp-top">
+        <span class="opp-type">${m.role || 'unspecified'}</span>
+        <span class="meta-tag">${new Date(m.created_at).toLocaleDateString()}</span>
+      </div>
+      <h3>${m.name}</h3>
+      <p class="opp-org"><a href="mailto:${m.email}">${m.email}</a></p>
+      <p class="opp-desc">${m.message}</p>
+      ${m.read ? '' : `<button class="btn btn-outline small mark-read-btn" data-id="${m.id}">Mark as read</button>`}
+    </article>
+  `).join('');
+
+  listEl.querySelectorAll('.mark-read-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      await markMessageRead(btn.dataset.id);
+      messages = messages.map(m => m.id === btn.dataset.id ? { ...m, read: true } : m);
+      renderMessages();
+    });
   });
 }
 
